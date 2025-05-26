@@ -19,11 +19,13 @@ const Login = () => {
             email,
             password
         }
-        console.log(userloginDetails)
 
         axios.post('http://localhost:5000/login', userloginDetails)
         .then((res) => {
             console.log(res)
+            usernameInputRef.current.value = '';
+            emailInputRef.current.value = '';
+            passwordInputRef.current.value = '';
         })
         .catch((err) => {
             console.log(err)
