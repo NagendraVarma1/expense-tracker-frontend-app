@@ -1,11 +1,12 @@
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import axios from "axios"
 
-const Login = () => {
+const Signup = () => {
 
     const usernameInputRef = useRef()
     const emailInputRef = useRef()
     const passwordInputRef = useRef()
+    const [existingUser, setExistingUser] = useState(false)
 
     const formSubmitHandler = (event) => {
         event.preventDefault();
@@ -14,15 +15,21 @@ const Login = () => {
         const email = emailInputRef.current.value;
         const password = passwordInputRef.current.value;
 
-        const userloginDetails = {
+        const userSignupDetails = {
             username,
             email,
             password
         }
 
-        axios.post('http://localhost:5000/login', userloginDetails)
+        axios.post('http://localhost:5000/signup', userSignupDetails)
         .then((res) => {
-            console.log(res)
+            console.log(res.data)
+            if(res.data.userData === "User already Exist"){
+                setExistingUser(true)
+            }
+            else{
+                setExistingUser(false)
+            }
             usernameInputRef.current.value = '';
             emailInputRef.current.value = '';
             passwordInputRef.current.value = '';
@@ -34,7 +41,7 @@ const Login = () => {
 
     return(
         <div>
-            <h1>Login Page</h1>
+            <h1>Signup Page</h1>
             <form onSubmit={formSubmitHandler}>
                 <div>
                     <label>Username: </label>
@@ -50,8 +57,9 @@ const Login = () => {
                 </div>
                 <button type="submit">LOGIN</button>
             </form>
+            {existingUser && <p>Email already Exist! please Login...</p>}
         </div>
     )
 }
 
-export default Login
+export default Signup
