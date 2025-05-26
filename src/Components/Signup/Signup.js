@@ -1,5 +1,6 @@
 import { useRef, useState } from "react"
 import axios from "axios"
+import classes from './Signup.module.css'
 
 const Signup = () => {
 
@@ -40,22 +41,22 @@ const Signup = () => {
     }
 
     return(
-        <div>
+        <div className={classes.mainDiv}>
             <h1>Signup Page</h1>
-            <form onSubmit={formSubmitHandler}>
-                <div>
+            <form className={classes.form} onSubmit={formSubmitHandler}>
+                <div className={classes.inputDiv}>
                     <label>Username: </label>
                     <input type="text" ref={usernameInputRef} required/>
                 </div>
-                <div>
+                <div className={classes.inputDiv}>
                     <label>Email: </label>
                     <input type="email" ref={emailInputRef} required/>
                 </div>
-                <div>
+                <div className={classes.inputDiv}>
                     <label>Password: </label>
                     <input type="password" ref={passwordInputRef} required/>
                 </div>
-                <button type="submit">LOGIN</button>
+                <button type="submit">SIGNUP</button>
             </form>
             {existingUser && <p>Email already Exist! please Login...</p>}
         </div>
