@@ -1,9 +1,11 @@
-import { useRef } from "react";
-import classes from './Login.module.css'
+import { useRef, useState } from "react";
+import classes from "./Login.module.css";
+import axios from "axios";
 
 const Login = () => {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
+  const [message, setMessage] = useState('')
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
@@ -15,7 +17,18 @@ const Login = () => {
       password,
     };
 
-    console.log(userLoginDetails);
+    axios
+      .post("http://localhost:5000/login", userLoginDetails)
+      .then((res) => {
+        setMessage('')
+        alert(res.data.loginStatus);
+      })
+      .catch((err) => {
+        setMessage(err.message);
+      });
+
+    emailInputRef.current.value = "";
+    passwordInputRef.current.value = "";
   };
   return (
     <div className={classes.mainDiv}>
@@ -34,6 +47,7 @@ const Login = () => {
       <p>
         New User! <a href="/">Signup here</a>
       </p>
+      {message && <p>{message}</p>}
     </div>
   );
 };
