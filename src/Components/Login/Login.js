@@ -24,7 +24,7 @@ const Login = () => {
         alert(res.data.loginStatus);
       })
       .catch((err) => {
-        setMessage(err.message);
+        setMessage(err.response.data.message);
       });
 
     emailInputRef.current.value = "";
