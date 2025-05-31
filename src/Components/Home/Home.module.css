@@ -1,0 +1,50 @@
+.mainDiv{
+    text-align: center;
+    border: 1px solid black;
+    width: 40%;
+    margin-left: 30%;
+    border-radius: 20px;
+    margin-top: 3%;
+}
+
+.form{
+    border-top:  1px solid black;
+    padding: 10px
+}
+
+.inputDiv{
+    margin: 15px
+}
+
+.inputDiv label{
+    font-size: large;
+    font-weight: bold;
+}
+
+.inputDiv input {
+    padding: 3px
+}
+
+.btn, .btn2{
+    padding: 5px 15px;
+    border-radius: 5px;
+}
+
+.expenseDiv{
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 80%;
+    margin: 20px 10%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+span{
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: larger;
+}
+
+.btn2{
+    margin: 10px;
+}

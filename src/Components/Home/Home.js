@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
+import classes from './Home.module.css'
 
 const Home = () => {
   const amountInputRef = useRef();
@@ -40,6 +41,18 @@ const Home = () => {
     });
   };
 
+  const deleteHandler = (id) => {
+    axios
+      .delete(`http://localhost:5000/expense/delete-expense/${id}`)
+      .then((res) => {
+        console.log(res);
+        setReload(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     if (reload) {
       getAllExpenses();
@@ -48,38 +61,46 @@ const Home = () => {
 
   return (
     <div>
-      <h1>Add New Expense</h1>
-      <form onSubmit={formSubmitHandler}>
-        <div>
-          <label>Expense Amount </label>
-          <input type="number" ref={amountInputRef} required />
-        </div>
-        <div>
-          <label>Expense Description</label>
-          <input type="text" ref={descriptionInputRef} required />
-        </div>
-        <div>
-          <label>Category: </label>
-          <select ref={categoryInputRef}>
-            <option value="food">Food</option>
-            <option value="fuel">Fuel</option>
-            <option value="movie">Movie</option>
-            <option value="others">Others</option>
-          </select>
-        </div>
-        <button type="submit">Add Expense</button>
-      </form>
+      <div className={classes.mainDiv}>
+        <h1>Add New Expense</h1>
+        <form className={classes.form} onSubmit={formSubmitHandler}>
+          <div className={classes.inputDiv}>
+            <label>Expense Amount: </label>
+            <input type="number" ref={amountInputRef} required />
+          </div>
+          <div className={classes.inputDiv}>
+            <label>Expense Description: </label>
+            <input type="text" ref={descriptionInputRef} required />
+          </div>
+          <div className={classes.inputDiv}>
+            <label>Category: </label>
+            <select ref={categoryInputRef}>
+              <option value="food">Food</option>
+              <option value="fuel">Fuel</option>
+              <option value="movie">Movie</option>
+              <option value="others">Others</option>
+            </select>
+          </div>
+          <button className={classes.btn} type="submit">Add Expense</button>
+        </form>
+      </div>
       <div>
-        <h1>All Expenses</h1>
+        <h1 style={{textAlign: 'center'}}>All Expenses</h1>
         {expenses.map((expense) => (
           <div
+          className={classes.expenseDiv}
             key={expense.id}
-            style={{ display: "flex", justifyContent: "space-evenly" }}
           >
-            <p>{expense.description}</p>
-            <p>{expense.amount}</p>
-            <p>{expense.category}</p>
-            <button>Delete</button>
+            <p><span>Description: </span>{expense.description}</p>
+            <p><span>Amount: </span>{expense.amount}</p>
+            <p><span>Category: </span>{expense.category}</p>
+            <button className={classes.btn2}
+              onClick={() => {
+                deleteHandler(expense.id);
+              }}
+            >
+              Delete
+            </button>
           </div>
         ))}
       </div>
