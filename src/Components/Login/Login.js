@@ -1,11 +1,13 @@
 import { useRef, useState } from "react";
 import classes from "./Login.module.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const [message, setMessage] = useState('')
+  const navigate = useNavigate()
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
@@ -21,7 +23,8 @@ const Login = () => {
       .post("http://localhost:5000/login", userLoginDetails)
       .then((res) => {
         setMessage('')
-        alert(res.data.loginStatus);
+        localStorage.setItem('email', email)
+        navigate('/home')
       })
       .catch((err) => {
         setMessage(err.response.data.message);
