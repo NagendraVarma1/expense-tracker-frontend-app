@@ -23,7 +23,7 @@ const Login = () => {
       .post("http://localhost:5000/login", userLoginDetails)
       .then((res) => {
         setMessage('')
-        localStorage.setItem('email', email)
+        localStorage.setItem('token', res.data.token)
         navigate('/home')
       })
       .catch((err) => {

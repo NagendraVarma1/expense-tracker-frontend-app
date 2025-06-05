@@ -1,12 +1,14 @@
 import { useRef, useState } from "react";
 import axios from "axios";
 import classes from "./Signup.module.css";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const usernameInputRef = useRef();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const [existingUser, setExistingUser] = useState(false);
+  const navigate = useNavigate()
 
   const formSubmitHandler = (event) => {
     event.preventDefault();
@@ -29,6 +31,7 @@ const Signup = () => {
           setExistingUser(true);
         } else {
           setExistingUser(false);
+          navigate('/login')
         }
         usernameInputRef.current.value = "";
         emailInputRef.current.value = "";

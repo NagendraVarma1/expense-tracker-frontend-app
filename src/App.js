@@ -6,7 +6,7 @@ import Login from "./Components/Login/Login";
 import Home from "./Components/Home/Home";
 
 function App() {
-  const token = localStorage.getItem('email')
+  const token = localStorage.getItem('token')
   const router = createBrowserRouter([
     {
       path: "/",

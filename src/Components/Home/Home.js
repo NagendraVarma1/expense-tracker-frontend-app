@@ -14,13 +14,15 @@ const Home = () => {
     const amount = amountInputRef.current.value;
     const description = descriptionInputRef.current.value;
     const category = categoryInputRef.current.value;
+
+    const token = localStorage.getItem('token')
     const expense = {
       amount,
       description,
       category,
     };
     axios
-      .post("http://localhost:5000/expense/add-expense", expense)
+      .post("http://localhost:5000/expense/add-expense", expense, {headers: {'Authorization': token}})
       .then((res) => {
         console.log(res.data.expenseData);
         setReload(true);
@@ -35,10 +37,12 @@ const Home = () => {
   };
 
   const getAllExpenses = () => {
-    axios.get("http://localhost:5000/expense/get-all-expenses").then((res) => {
+    const token = localStorage.getItem('token')
+    axios.get("http://localhost:5000/expense/get-all-expenses", {headers: {'Authorization': token}}).then((res) => {
+      console.log(res.data.allExpenses)
       setExpenses(res.data.allExpenses);
       setReload(false);
-    });
+    }).catch((err) => console.log(err.message));
   };
 
   const deleteHandler = (id) => {
